@@ -1,2 +1,3 @@
 # barbershop_manager
- System for barber 
+ system for managemant barbershops 
+ 
