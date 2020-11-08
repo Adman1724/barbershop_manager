@@ -21159,7 +21159,7 @@ var render = function() {
                   attrs: {
                     counter: 10,
                     rules: _vm.nameRules,
-                    label: "Fullnameame",
+                    label: "Fullname",
                     required: ""
                   },
                   model: {

@@ -9,7 +9,7 @@
             </div>
             <v-spacer></v-spacer>
             <v-form ref="form" v-model="valid" lazy-validation>
-                <v-text-field v-model="fullname" :counter="10" :rules="nameRules" label="Fullnameame" required></v-text-field>
+                <v-text-field v-model="fullname" :counter="10" :rules="nameRules" label="Fullname" required></v-text-field>
 
                 <v-text-field v-model="username" :counter="10" :rules="usernameRules" label="Username" required></v-text-field>
                 <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
