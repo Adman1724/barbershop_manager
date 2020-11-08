@@ -2026,38 +2026,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'navbar',
   props: ['app'],
@@ -2329,7 +2297,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\na:link{\n  color:white;\n  text-decoration: none;\n}\na:visited {\n  text-decoration: none;\n  color:white;\n}\na:hover{\n  color: darkgray;\n}\n\n\n", ""]);
+exports.push([module.i, "\na:link {\r\n    color: white;\r\n    text-decoration: none;\n}\na:visited {\r\n    text-decoration: none;\r\n    color: white;\n}\na:hover {\r\n    color: darkgray;\n}\r\n", ""]);
 
 // exports
 
@@ -2367,7 +2335,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nh1 {\r\n    font-size: 1.5em;\n}\n.spacer {\r\n    height: 25px;\n}\n.full {\r\n    height: 100vh;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\n}\n.is-horizontal-center {\r\n    display: block;\r\n    margin-bottom: 300px;\r\n    width: 600px;\n}\n.center {\r\n    display: flex;\r\n    justify-content: center;\n}\n.theme--light.v-card {\r\n    padding: 50px;\n}\r\n", ""]);
+exports.push([module.i, "\nh1 {\r\n    font-size: 1.5em;\n}\n.spacer {\r\n    height: 25px;\n}\n.full {\r\n    height: 100vh;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\n}\n.is-horizontal-center {\r\n    display: block;\r\n    margin-bottom: 300px;\r\n    width: 600px;\n}\n.center {\r\n    display: flex;\r\n    justify-content: center;\n}\n.theme--light.v-card {\r\n    padding: 50px;\n}\n.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined)\r\n{\r\n    background-color: goldenrod !important;\n}\n.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover\r\n{\r\n    background-color: rgb(179, 142, 51) !important;\n}\r\n", ""]);
 
 // exports
 
@@ -20744,7 +20712,10 @@ var render = function() {
       _c("navbar", { attrs: { app: this } }),
       _vm._v(" "),
       _vm.loading
-        ? _c("spinner")
+        ? _c("spinner", {
+            staticStyle: { margin: "50px" },
+            attrs: { "line-fg-color": "#daa520" }
+          })
         : _vm.initiated
         ? _c("div", [_c("router-view", { attrs: { app: this } })], 1)
         : _vm._e()
@@ -20781,9 +20752,15 @@ var render = function() {
         "v-app-bar",
         { attrs: { color: "deep-purple accent-4", dense: "", dark: "" } },
         [
-          _c("v-app-bar-nav-icon"),
+          _c("v-img", {
+            attrs: {
+              "max-height": "60px",
+              "max-width": "40px",
+              src: "http://127.0.0.1:8000/images/frame4.png"
+            }
+          }),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("Page title")]),
+          _c("v-toolbar-title", [_vm._v("Barbershop Manager")]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
@@ -20908,9 +20885,9 @@ var render = function() {
                                             { staticClass: "caption mt-1" },
                                             [
                                               _vm._v(
-                                                "\n                  " +
+                                                "\r\n                                        " +
                                                   _vm._s(_vm.user.email) +
-                                                  "\n                "
+                                                  "\r\n                                    "
                                               )
                                             ]
                                           ),
@@ -20930,7 +20907,7 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                  Edit Account\n                "
+                                                "\r\n                                        Edit Account\r\n                                    "
                                               )
                                             ]
                                           ),
@@ -20950,7 +20927,7 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                  Disconnect\n                "
+                                                "\r\n                                        Disconnect\r\n                                    "
                                               )
                                             ]
                                           )
@@ -21240,7 +21217,7 @@ var render = function() {
                   "v-btn",
                   {
                     staticClass: "mr-4",
-                    attrs: { disabled: !_vm.valid, color: "success" },
+                    attrs: { disabled: !_vm.valid, color: "secondary" },
                     on: { click: _vm.validate }
                   },
                   [

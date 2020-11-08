@@ -15,7 +15,7 @@
                 <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
 
                 <v-spacer></v-spacer>
-                <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
+                <v-btn :disabled="!valid" color="secondary" class="mr-4" @click="validate">
                     Register
                 </v-btn>
 
@@ -125,5 +125,14 @@ h1 {
 
 .theme--light.v-card {
     padding: 50px;
+}
+
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined)
+{
+    background-color: goldenrod !important;
+}
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined):hover
+{
+    background-color: rgb(179, 142, 51) !important;
 }
 </style>

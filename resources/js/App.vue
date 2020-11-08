@@ -1,7 +1,7 @@
 <template>
   <div>
       <navbar :app="this"></navbar>
-      <spinner v-if="loading"></spinner>
+      <spinner v-if="loading" line-fg-color="#daa520" style="margin:50px;"></spinner>
       <div v-else-if="initiated">
 
           <router-view :app="this"/>
@@ -16,6 +16,7 @@ import navbar from './components/Navbar';
 
 export default {
     name: 'app',
+    
     components: {
         navbar
     },
