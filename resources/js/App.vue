@@ -15,7 +15,8 @@
 import navbar from './components/Navbar';
 
 export default {
-    name: 'app',
+    name: "app",
+    
     
     components: {
         navbar
@@ -28,7 +29,7 @@ export default {
             req: axios.create({
                 baseUrl: BASE_URL
             })
-        }
+        };
 
     },
     mounted(){
@@ -41,9 +42,10 @@ export default {
 
             this.req.get('auth/init').then(response =>{
                 this.user = response.data.user;
+                
                 this.loading =false;
                 this.initiated = true;
-            })
+            });
         }
     }
 };

@@ -14,7 +14,7 @@
                 <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
 
                 <v-spacer></v-spacer>
-                <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
+                <v-btn :disabled="!valid" color="success" class="mr-4" @click="onSubmit">
                     Login
                 </v-btn>
 
@@ -28,8 +28,17 @@
 <script>
 export default {
 
-    name: 'register',
-    props: ['app'],
+    name: 'login',
+    props: {
+        app: Object,
+         
+            usernameRules: [
+                v => !!v || 'Name is required',
+                v => (v && v.length <= 10) || 'Userame must be less than 10 characters',
+            ],
+
+
+    },
 
     data() {
         return {
@@ -45,18 +54,34 @@ export default {
                 valid: true,
 
             },
-            usernameRules: [
-                v => !!v || 'Name is required',
-                v => (v && v.length <= 10) || 'Userame must be less than 10 characters',
-            ],
+           
         }
     },
     methods: {
-        validate() {
-            this.$refs.form.validate()
+       validate() {
+
+            
+                this.onSubmit();
+            
+
         },
-        onSubmit(){
-            this.errors = []
+        onSubmit() {
+            const data = {
+                
+                username: this.username,
+                password: this.password,
+            }
+            console.log(data);
+            this.app.req.post('auth/login', data).then(response => {
+                this.app.user = response.data;
+                console.log('tu som ')
+                
+                this.$router.push("/");
+            }).catch(error => {
+                this.error.push(error.response.data.error);
+                console.log(this.error);
+            });
+
         }
     }
 
