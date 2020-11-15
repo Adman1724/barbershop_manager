@@ -1,5 +1,10 @@
 <template>
-  <div>
+  
+      <div class="flex height-100">
+          <div v-if=user class="block">
+              <sidebar  :app="this"></sidebar>
+          </div>
+          <div class="block-1">
       <navbar :app="this"></navbar>
       <spinner v-if="loading" line-fg-color="#daa520" style="margin:50px;"></spinner>
       <div v-else-if="initiated">
@@ -7,19 +12,24 @@
           <router-view :app="this"/>
 
       </div>
+       </div>
       
   </div>
 </template>
 
 <script>
 import navbar from './components/Navbar';
+import sidebar from './components/SidebarComponent'
+
 
 export default {
     name: "app",
     
     
     components: {
-        navbar
+        navbar,
+        sidebar
+       
     },
     data(){
             return{
@@ -52,8 +62,28 @@ export default {
 </script>
 
 <style>
+html {
+    height: 100%;
+}
     body{
         font-family: 'Roboto', sans-serif;
+        height: 100%;
+     
+    }
+    .flex{
+        display: flex;
+        
+    }
+    .height-100{
+        height: 100%;;
+    }
+    
+    .block{
+        display: block;
+    }
+      .block-1{
+        display: block;
+        width: 100%;
     }
 
 </style>

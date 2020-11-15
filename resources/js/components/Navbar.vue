@@ -1,9 +1,11 @@
 <template>
 <div>
-    <v-app-bar color="deep-purple accent-4" dense dark>
-        <!--<v-app-bar-nav-icon></v-app-bar-nav-icon>-->
-        <v-img max-height="60px" max-width="40px" src="http://127.0.0.1:8000/images/frame4.png"></v-img>
+    <v-app-bar color="deep-purple accent-4 dark" dense >
+        <v-app-bar-nav-icon v-if="app.user" class="dark"></v-app-bar-nav-icon>
+         <div v-if="!app.user" class="flex">
+         <v-img max-height="60px" max-width="40px" src="http://127.0.0.1:8000/images/frame4.png"></v-img>
         <v-toolbar-title>Barbershop Manager</v-toolbar-title>
+        </div>
 
         <v-spacer></v-spacer>
 
@@ -50,6 +52,11 @@ export default {
 </script>
 
 <style>
+.dark{
+    background-color: #363636 !important;
+    color:white!important;
+}
+
 a:link {
     color: white;
     text-decoration: none;
