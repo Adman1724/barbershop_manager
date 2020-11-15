@@ -23,7 +23,7 @@ class AppController extends Controller
             return response()->json(Auth::user(),200);
         }
         else{
-            return response()->json(['error'=> 'you shall not pass'], 401);
+            return response()->json(['error'=> 'You shall not pass!'], 401);
         }
 
 

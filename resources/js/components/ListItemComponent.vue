@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto dark" max-width="500" >
+  <v-card class="mx-auto dark" max-width="500">
     <v-toolbar class="dark" color="teal" dark>
       <v-img
         max-height="60px"
@@ -7,13 +7,15 @@
         src="http://127.0.0.1:8000/images/frame4.png"
       ></v-img>
 
-      <v-toolbar-title>Barbershop Manager</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/">Barbershop Manager</router-link>
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
     </v-toolbar>
 
     <v-list>
-      <v-list-group 
+      <v-list-group
         v-for="item in items"
         :key="item.title"
         v-model="item.active"
@@ -21,14 +23,19 @@
         no-action
       >
         <template v-slot:activator>
-          <v-list-item-content >
+          <v-list-item-content>
             <v-list-item-title v-text="item.title"></v-list-item-title>
           </v-list-item-content>
         </template>
 
         <v-list-item v-for="child in item.items" :key="child.title">
           <v-list-item-content>
-            <v-list-item-title v-text="child.title"></v-list-item-title>
+            <router-link :to="child.link"
+              ><v-list-item-title
+                v-text="child.title"
+                class="margin-5"
+              ></v-list-item-title
+            ></router-link>
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
@@ -40,46 +47,63 @@ export default {
   data: () => ({
     items: [
       {
-        action: "mdi-ticket",
-        items: [{ title: "List Item" }],
-        title: "Attractions",
+        action: "mdi-archive",
+        items: [
+          { title: "Products", link: "/inventory/products" },
+          { title: "New", link: "/inventory/new" },
+          { title: "History", link: "/inventory/history" },
+        ],
+        title: "Inventory",
       },
       {
-        action: "mdi-silverware-fork-knife",
+        action: "mdi-bottle-soda-outline",
+        items: [
+          { title: "New", link: "/products/new" },
+          { title: "Edit", link: "/inventory/edit" },
+        ],
+        title: "Products",
+      },
+
+      {
+        action: "mdi-cash-multiple",
         active: true,
         items: [
-          { title: "Breakfast & brunch" },
-          { title: "New American" },
-          { title: "Sushi" },
+          { title: "New Tax", link: "/tax/new" },
+          { title: "History", link: "/tax/history" },
         ],
-        title: "Dining",
-      },
-      {
-        action: "mdi-school",
-        items: [{ title: "List Item" }],
-        title: "Education",
-      },
-      {
-        action: "mdi-run",
-        items: [{ title: "List Item" }],
-        title: "Family",
-      },
-      {
-        action: "mdi-bottle-tonic-plus",
-        items: [{ title: "List Item" }],
-        title: "Health",
+        title: "Tax",
       },
       {
         action: "mdi-content-cut",
-        items: [{ title: "List Item" }],
-        title: "Office",
+        items: [
+          { title: "Services", link: "/test" },
+          { title: "Add new Service", link: "/users/new" },
+          { title: "Edit Service", link: "/users/new" },
+        ],
+        title: "Services",
       },
       {
-        action: "mdi-tag",
-        items: [{ title: "List Item" }],
-        title: "Promotions",
+        action: "mdi-briefcase",
+        items: [
+          { title: "Add new employer", link: "/employers/new" },
+          { title: "Edit employer", link: "/employers/edit" },
+        ],
+        title: "Employers",
+      },
+      {
+        action: "mdi-account",
+        items: [
+          { title: "Users", link: "/test" },
+          { title: "Add new user", link: "/users/new" },
+        ],
+        title: "Users",
       },
     ],
   }),
 };
 </script>
+<style>
+.margin-5 {
+  margin-left: 40px;
+}
+</style>

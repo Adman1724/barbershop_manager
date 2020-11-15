@@ -6,6 +6,9 @@
           <h1>LOGIN PAGE</h1>
         </div>
         <v-spacer></v-spacer>
+        <div class="center red" >
+         <h1 v-if="error" >{{error}}</h1>
+        </div>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="username"
@@ -58,6 +61,7 @@ export default {
       username: "",
       valid: true,
       show1: false,
+      error:null,
       password: "",
       rules: {
         required: (value) => !!value || "Required.",
@@ -76,7 +80,7 @@ export default {
         username: this.username,
         password: this.password,
       };
-      console.log(data);
+     
       this.app.req
         .post("auth/login", data)
         .then((response) => {
@@ -85,7 +89,7 @@ export default {
           this.$router.push("/");
         })
         .catch((error) => {
-          this.error.push(error.response.data.error);
+          this.error=(error.response.data.error);
           console.log(this.error);
         });
     },
@@ -122,5 +126,8 @@ h1 {
 
 .theme--light.v-card {
   padding: 50px;
+}
+.red{
+    color: red;
 }
 </style>

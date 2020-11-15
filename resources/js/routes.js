@@ -1,6 +1,7 @@
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register'
+import Test from './components/TestComponent'
 
 
 
@@ -21,6 +22,11 @@ export default[
         path: '/register',
         component: Register,
         name: 'register'
+    },
+    {
+        path: '/test',
+        component: Test,
+        name: 'test'
     },
 
 
