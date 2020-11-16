@@ -26,3 +26,12 @@ Route::prefix('auth')->group(function(){
     Route::post('logout', 'AppController@logout');
 
 });
+
+Route::prefix('employee')->group(function(){
+
+    Route::get('init', 'EmployeeController@getAllEmployees');
+
+    
+
+});
+
