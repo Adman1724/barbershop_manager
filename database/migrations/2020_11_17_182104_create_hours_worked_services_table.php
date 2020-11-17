@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateHoursWorkedServicesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('hours_worked_services', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('hours_worked_id')->unsigned();
+            $table->bigInteger('service_id')->unsigned();
+            $table->integer('multiplicity');
+            $table->timestamps();
+            $table->foreign('hours_worked_id')->references('id')->on('Hours_worked');
+            $table->foreign('service_id')->references('id')->on('Services');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('hours_worked_services');
+    }
+}
