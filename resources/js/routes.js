@@ -2,6 +2,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register'
 import Test from './components/TestComponent'
+import Employees from './pages/Employees'
 
 
 
@@ -27,6 +28,11 @@ export default[
         path: '/test',
         component: Test,
         name: 'test'
+    },
+    {
+        path: '/employees',
+        component: Employees,
+        name: 'employees'
     },
 
 
