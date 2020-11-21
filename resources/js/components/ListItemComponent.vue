@@ -23,9 +23,12 @@
         no-action
       >
         <template v-slot:activator>
-          <v-list-item-content>
+          <router-link  :to="item.link">
+             <v-list-item-content>
             <v-list-item-title v-text="item.title"></v-list-item-title>
           </v-list-item-content>
+          </router-link>
+         
         </template>
 
         <v-list-item v-for="child in item.items" :key="child.title">
@@ -54,6 +57,7 @@ export default {
           { title: "History", link: "/inventory/history" },
         ],
         title: "Inventory",
+        link: "/inventory"
       },
       {
         action: "mdi-bottle-soda-outline",
@@ -62,6 +66,7 @@ export default {
           { title: "Edit", link: "/inventory/edit" },
         ],
         title: "Products",
+        link: "/products"
       },
 
       {
@@ -72,6 +77,7 @@ export default {
           { title: "History", link: "/tax/history" },
         ],
         title: "Tax",
+        link: "/taxs"
       },
       {
         action: "mdi-content-cut",
@@ -81,14 +87,16 @@ export default {
           { title: "Edit Service", link: "/users/new" },
         ],
         title: "Services",
+        link: "/services"
       },
       {
         action: "mdi-briefcase",
         items: [
-          { title: "Add new employer", link: "/employers/new" },
-          { title: "Edit employer", link: "/employers/edit" },
+          { title: "Add new employee", link: "/employees/new" },
+          { title: "Edit employee", link: "/employees/edit" },
         ],
-        title: "Employers",
+        title: "Employees",
+        link: "/employees"
       },
       {
         action: "mdi-account",
@@ -97,6 +105,7 @@ export default {
           { title: "Add new user", link: "/users/new" },
         ],
         title: "Users",
+        link: "/users"
       },
     ],
   }),
