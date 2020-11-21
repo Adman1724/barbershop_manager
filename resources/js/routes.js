@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register'
 import Test from './components/TestComponent'
 import Employees from './pages/Employees'
+import Payouts from './pages/Payouts'
 
 
 
@@ -33,6 +34,11 @@ export default[
         path: '/employees',
         component: Employees,
         name: 'employees'
+    },
+    {
+        path: '/payouts',
+        component: Payouts,
+        name: 'payouts'
     },
 
 

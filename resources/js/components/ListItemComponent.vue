@@ -76,8 +76,8 @@ export default {
           { title: "New Tax", link: "/tax/new" },
           { title: "History", link: "/tax/history" },
         ],
-        title: "Tax",
-        link: "/taxs"
+        title: "Payouts",
+        link: "/payouts"
       },
       {
         action: "mdi-content-cut",

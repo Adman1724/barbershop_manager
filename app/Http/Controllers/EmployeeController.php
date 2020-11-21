@@ -18,4 +18,32 @@ class EmployeeController extends Controller
         return response()->json(['employees'=>$employees],200);
 
     }
+    public function delete($id ){
+       $employee = Employee::findOrFail($id);
+       
+       //$employee->EmployeesPayouts->delete();
+      
+        
+        if($employee)
+        $employee->delete(); 
+        else
+        return response()->json([],500);
+     
+    return response()->json(['result'=>'done'],200);
+    }
+    public function update(Request $request, $id){
+        $employee = Employee::findOrFail($id);
+        $employee->update($request->all());
+
+        
+        
+        
+
+        return response()->json(['result'=>$employee],200);
+    }
+    public function store(Request $request){
+        $employee = Employee::create($request->all());
+
+        return response()->json($employee, 201);
+    }
 }

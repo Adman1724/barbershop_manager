@@ -30,6 +30,11 @@ Route::prefix('auth')->group(function(){
 Route::prefix('employee')->group(function(){
 
     Route::get('init', 'EmployeeController@getAllEmployees');
+    Route::delete('/{id}', 'EmployeeController@delete');
+    Route::put('/{id}', 'EmployeeController@update');
+    Route::post('/new', 'EmployeeController@store');
+
+
 
     
 

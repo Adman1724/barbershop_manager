@@ -2,9 +2,8 @@
   <div>
     <div class="flex items-center justify-center mt-6 text-left">
       <v-card elevation="2" width="80%">
-        
         <v-data-table
-        data-app
+          data-app
           :headers="headers"
           :items="employees"
           :items-per-page="10"
@@ -41,12 +40,14 @@
                           <v-text-field
                             v-model="editedItem.name"
                             label="Name"
+                            class="capitalize"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
                           <v-text-field
                             v-model="editedItem.surname"
                             label="Surname"
+                            class="capitalize"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
@@ -85,7 +86,8 @@
               <v-dialog v-model="dialogDelete" max-width="500px">
                 <v-card>
                   <v-card-title class="headline"
-                    >Are you sure you want to delete this item?</v-card-title
+                    >Are you sure you want to delete this
+                    Employee?</v-card-title
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -133,9 +135,10 @@ export default {
         { text: "Username", value: "username" },
         { text: "Wage", value: "wage" },
         { text: "Email", value: "email" },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: "Actions", value: "actions", sortable: false },
       ],
       employees: [],
+      employee: Object,
       editedIndex: -1,
       editedItem: {
         name: "",
@@ -157,6 +160,8 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
+
+    
   },
 
   watch: {
@@ -179,23 +184,31 @@ export default {
         console.log(response);
       });
     },
+     capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+},
     editItem(item) {
-      console.log(item);
       this.editedIndex = this.employees.indexOf(item);
-      console.log(this.editedIndex);
+
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
       this.editedIndex = this.employees.indexOf(item);
+
       this.editedItem = Object.assign({}, item);
+
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
+      this.app.req.delete("employee/" + this.editedItem.id).then((response) => {
+        console.log(response);
+      });
       this.employees.splice(this.editedIndex, 1);
       this.closeDelete();
+      this.init();
     },
 
     close() {
@@ -216,16 +229,36 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.employees[this.editedIndex], this.editedItem);
+        this.employee = Object.assign(
+          this.employees[this.editedIndex],
+          this.editedItem
+        );
+        this.employee.name = this.capitalizeFirstLetter(this.employee.name);
+        this.employee.surname = this.capitalizeFirstLetter(this.employee.surname);
+       
+        this.app.req
+          .put("employee/" + this.editedItem.id, this.employee)
+          .then((response) => {
+            console.log(response);
+          });
       } else {
-        this.employees.push(this.editedItem);
+        this.employee = this.editedItem;
+        this.employee.name = this.capitalizeFirstLetter(this.employee.name);
+        this.employee.surname = this.capitalizeFirstLetter(this.employee.surname);
+         
+        this.app.req.post("employee/new", this.employee).then((response) => {
+          console.log(response);
+        });
+        this.employees.push(this.editedItem)
       }
+      this.employee = [];
+      this.init();
       this.close();
     },
+   
   },
 };
 </script>
 
 <style>
-
 </style>
