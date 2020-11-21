@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/tailwind.css')}}">
     </head>
     <body>
         <div id="app"></div>

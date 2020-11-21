@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex-centring">
+    <div class="flex items-center justify-center mt-6 text-left">
       <v-card elevation="2" width="80%">
         
         <v-data-table
@@ -227,11 +227,5 @@ export default {
 </script>
 
 <style>
-.flex-centring {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: left;
-  margin-top: 20px;
-}
+
 </style>
