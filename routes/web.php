@@ -34,9 +34,13 @@ Route::prefix('employee')->group(function(){
     Route::put('/{id}', 'EmployeeController@update');
     Route::post('/new', 'EmployeeController@store');
 
+});
+Route::prefix('payout')->group(function(){
 
-
-    
+    Route::get('init' , 'PayoutController@showAll');
+    Route::delete('/{id}', 'PayoutController@delete');
+    Route::put('/{id}', 'PayoutController@update');
+    Route::post('/new', 'PayoutController@store');
 
 });
 

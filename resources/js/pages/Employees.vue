@@ -121,6 +121,7 @@
 <script>
 export default {
   props: ["app"],
+ 
   data() {
     return {
       dialog: false,

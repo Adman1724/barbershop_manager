@@ -1,4 +1,5 @@
 module.exports = {
+  important: '#app',
   
    purge: [
         './public/index.php',
