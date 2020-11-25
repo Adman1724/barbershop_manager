@@ -20,6 +20,7 @@ export default {
     this.init();},
     methods:{
       init(){
+        if(this.app.user){
         this.app.req
         .get("employee/init")
         .then((response) => {
@@ -27,6 +28,11 @@ export default {
           console.log(response)
     
         })
+        }
+      
+      else {
+        this.$router.push({ name: 'login' });
+      }
         
       }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <div class="flex items-center justify-center mt-6 text-left">
       <v-card elevation="2" width="80%">
         <v-data-table
@@ -180,10 +180,16 @@ export default {
 
   methods: {
     init() {
-      this.app.req.get("employee/init").then((response) => {
+      if(this.app.user){
+        this.app.req.get("employee/init").then((response) => {
         this.employees = response.data.employees;
         console.log(response);
       });
+      }
+      else {
+        this.$router.push({ name: 'login' });
+      }
+      
     },
      capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();

@@ -158,7 +158,13 @@ export default {
   },
 
   created() {
-    this.init();
+    if(this.app.user){
+this.init();
+    }
+    
+    else {
+        this.$router.push({ name: 'login' });
+      }
   },
 
   methods: {
