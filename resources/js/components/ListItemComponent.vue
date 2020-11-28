@@ -25,10 +25,10 @@
         <template v-slot:activator>
           <router-link  :to="item.link">
              <v-list-item-content>
-            <v-list-item-title v-text="item.title"></v-list-item-title>
+            <v-list-item-title class="p-2" v-text="item.title"></v-list-item-title>
           </v-list-item-content>
           </router-link>
-         
+
         </template>
 
         <v-list-item v-for="child in item.items" :key="child.title">
