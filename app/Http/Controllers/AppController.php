@@ -8,6 +8,23 @@ use App\User;
 
 class AppController extends Controller
 {
+    public function getAll(){
+        $users= User::all();
+
+        return response()->json(['users'=>$users],200);
+
+    }
+    public function delete($id ){
+        $user= User::findOrFail($id);
+
+         if($user)
+         $user->delete();
+         else
+         return response()->json([],500);
+
+     return response()->json(['result'=>'done'],200);
+     }
+
     public function init(){
 
         $user = Auth::user();

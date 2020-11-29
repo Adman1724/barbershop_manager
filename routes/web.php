@@ -20,7 +20,8 @@ Route::get('/', function () {
 Route::prefix('auth')->group(function(){
 
     Route::get('init', 'AppController@init');
-
+    Route::get('all', 'AppController@getAll');
+    Route::delete('/{id}', 'AppController@delete');
     Route::post('login', 'AppController@login');
     Route::post('register', 'AppController@register');
     Route::post('logout', 'AppController@logout');

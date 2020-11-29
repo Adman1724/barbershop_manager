@@ -101,7 +101,7 @@ export default {
       {
         action: "mdi-account",
         items: [
-          { title: "Users", link: "/test" },
+          { title: "Users", link: "/users" },
           { title: "Add new user", link: "/users/new" },
         ],
         title: "Users",
