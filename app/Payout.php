@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payout extends Model
 {
     protected $fillable = [
-        'date', 'works_days',
+        'date', 'works_days', 'json',
     ];
     public function EmployeesPayouts(){
         return $this->hasMany('App\EmployeesPayout');
@@ -21,6 +21,6 @@ class Payout extends Model
              // do the rest of the cleanup...
         });
     }
-    
+
 
 }

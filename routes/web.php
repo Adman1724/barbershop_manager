@@ -42,6 +42,8 @@ Route::prefix('payout')->group(function(){
     Route::delete('/{id}', 'PayoutController@delete');
     Route::put('/{id}', 'PayoutController@update');
     Route::post('/new', 'PayoutController@store');
+    Route::put('/json/{id}', 'PayoutController@updateJson');
+
 
 });
 

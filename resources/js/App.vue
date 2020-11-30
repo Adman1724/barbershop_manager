@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import navbar from "./components/Navbar";
-import sidebar from "./components/SidebarComponent";
+import navbar from "./components/adminsComponents/Navbar";
+import sidebar from "./components/adminsComponents/SidebarComponent";
 
 export default {
   name: "app",
