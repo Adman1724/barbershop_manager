@@ -1,182 +1,263 @@
 <template>
+<v-data-table data-app :headers="headers" :items="empPayouts" sort-by="date" class="elevation-1">
+    <template v-slot:top>
+        <v-toolbar flat>
+            <v-toolbar-title>{{actualPayout.date}}</v-toolbar-title>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <v-spacer></v-spacer>
+            <v-dialog v-model="dialog" min-width="400px">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="primary"  class="mb-2" v-bind="attrs" v-on="on">
+                        Calculate Payouts
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                        <span class="headline">{{ formTitle }}</span>
+                    </v-card-title>
+
+                    <v-card-text>
 
 
 
+                        <v-container>
 
-    <v-list>
-      <v-list-group
-        v-for="item in items"
-        :key="item.title"
-        v-model="item.active"
-        :prepend-icon="item.action"
-        no-action
-      >
-        <template v-slot:activator>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title"></v-list-item-title>
-          </v-list-item-content>
-        </template>
+                            <v-row>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.holiday" label="Holiday"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.firstPart" label="First Part"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.lunchCard" label="Lunch Card"></v-text-field>
+                                </v-col>
 
-        <v-list-item
-          v-for="child in item.items"
-          :key="child.title"
-        >
-          <v-list-item-content>
-            <v-list-item-title v-text="child.title"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-group>
-    </v-list>
+                            </v-row>
+
+                        </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="close">
+                            Cancel
+                        </v-btn>
+                        <v-btn color="blue darken-1" text @click="save">
+                            Save
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
 
 
+
+        </v-toolbar>
+    </template>
+    <template v-slot:[`item.actions`]="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)">
+            mdi-pencil
+        </v-icon>
+        <v-icon small @click="downloadPdf(item)"> mdi-cloud-download </v-icon>
+
+
+    </template>
+
+
+</v-data-table>
 </template>
 
 <script>
 export default {
-    props:["app"],
+    props: {
+        app: Object,
 
-     data()  {
-         return{
-        item:
-            {
-                action:'',
-                items:[],
-                title:'',
+    },
+
+    data() {
+        return {
+
+        actualPayout: {
+                id:0,
+                date:'default',
+                workedDays:100
+
+            },
+
+            modal: false,
+            dialog: false,
+            dialogDelete: false,
+            dialogDownloadPdf: false,
+            headers: [{
+                    align: "start",
+                    sortable: false,
+                    value: "name",
+                },
+                {
+                    text: "Name",
+                    value: "name"
+                },
+                {
+                    text: "Holiday",
+                    value: "holiday"
+                },
+                {
+                    text: "First",
+                    value: "firstPart"
+                },
+                 {
+                    text: "Second",
+                    value: "secondPart"
+                },
+                   {
+                    text: "Card",
+                    value: "lunchCard"
+                },
+                   {
+                    text: "Overtime",
+                    value: "overtime"
+                },
+                {
+                    text: "Actions",
+                    value: "actions",
+                    sortable: false
+                },
+            ],
+            empPayouts: [],
+            empPayout: {},
+            chosenFile: null,
+            editedIndex: -1,
+            editedItem: {
+                name: '',
+                holiday: 0,
+                firstPart: 0,
+                secondPart: 0,
+                lunchCard: 0,
+                overtime: 0,
+
+            },
+            defaultItem: {
+               name: '',
+                holiday: 0,
+                firstPart: 0,
+                secondPart: 0,
+                lunchCard: 0,
+                overtime: 0,
+            },
+        }
+    },
+
+    computed: {
+        formTitle() {
+            return this.editedIndex === -1 ? "New Item" : "Edit Item";
+        },
+    },
+
+    watch: {
+        dialog(val) {
+            val || this.close();
+        },
+
+
+    },
+
+    created() {
+
+
+        this.$root.$refs.EmployeesListComponent = this;
+
+
+    },
+
+    methods: {
+        init() {
+            var x;
+            this.empPayouts= [];
+            this.app.req.get("employees_payouts/init/"+ this.actualPayout.id).then((response) => {
+                //this.empPayouts = response.data.payouts;
+                console.log(response.data);
+                for(x in response.data){
+                    console.log(x);
+                    let employee = {};
+                    employee.id=response.data[x].id;
+                    employee.name= response.data[x].employee.name+' '+response.data[x].employee.surname;
+                    employee.firstPart=response.data[x].first_part;
+                    employee.secondPart=response.data[x].second_part;
+                    employee.overtime=response.data[x].overtime;
+                    employee.holiday=response.data[x].holiday;
+                    employee.lunchCard= response.data[x].lunch_card;
+                    this.empPayouts.push(employee);
+                }
+
+
+
+            });
+
+        },
+
+
+
+
+
+
+
+        editItem(item) {
+            this.editedIndex = this.empPayouts.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+            this.dialog = true;
+        },
+
+
+        downloadPdf(item) {
+            this.editedIndex = this.empPayouts.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+
+
+        },
+
+
+
+        close() {
+            this.dialog = false;
+            this.$nextTick(() => {
+                this.editedItem = Object.assign({}, this.defaultItem);
+                this.editedIndex = -1;
+            });
+        },
+
+
+
+
+
+        save() {
+            if (this.editedIndex > -1) {
+                this.empPayout = Object.assign(this.empPayouts[this.editedIndex], this.editedItem);
+
+                this.app.req
+                    .put("payout/" + this.editedItem.id, this.empPayout)
+                    .then((response) => {
+
+                    });
+
             }
-        ,
-        items: [
 
-      ],
-      defaultItem:
-            {
-                action:'',
-                items:[],
-                title:'',
-            }
-        ,
-        defaultItems:[],
-    }},
-     computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+            this.empPayout = [];
+           //init
+
+            this.close();
+        },
     },
-
-
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
-
-  created() {
-    this.init();
-  },
-
-  methods: {
-    init() {
-        var x;
-        this.items=this.defaultItems;
-        this.app.req.get("employee/init").then((response) => {
-        this.employees = response.data.employees;
-        console.log(response);
-         for (x in this.employees) {
-                this.item.action='';
-                this.item.items=[];
-                this.item.title=this.employees[x].name + ' '+this.employees[x].surname;
-                this.items.push(this.item);
-                this.item = Object.assign({}, this.defaultItem);
-
-
-                };
-
-      });
-
-
-
-
-    },
-     capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-},
-    editItem(item) {
-      this.editedIndex = this.employees.indexOf(item);
-
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.employees.indexOf(item);
-
-      this.editedItem = Object.assign({}, item);
-
-      this.dialogDelete = true;
-    },
-
-    deleteItemConfirm() {
-      this.app.req.delete("employee/" + this.editedItem.id).then((response) => {
-        console.log(response);
-      });
-      this.employees.splice(this.editedIndex, 1);
-      this.closeDelete();
-      this.init();
-    },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        this.employee = Object.assign(
-          this.employees[this.editedIndex],
-          this.editedItem
-        );
-        this.employee.name = this.capitalizeFirstLetter(this.employee.name);
-        this.employee.surname = this.capitalizeFirstLetter(this.employee.surname);
-
-        this.app.req
-          .put("employee/" + this.editedItem.id, this.employee)
-          .then((response) => {
-            console.log(response);
-          });
-      } else {
-        this.employee = this.editedItem;
-        this.employee.name = this.capitalizeFirstLetter(this.employee.name);
-        this.employee.surname = this.capitalizeFirstLetter(this.employee.surname);
-
-        this.app.req.post("employee/new", this.employee).then((response) => {
-          console.log(response);
-        });
-        this.employees.push(this.editedItem)
-      }
-      this.employee = [];
-      this.init();
-      this.close();
-    },
-
-  },
 
 }
+
 </script>
 
 <style>
+.v-dialog:not(.v-dialog--fullscreen) {
+    max-height: 100 !important;
+}
 
+.v-dialog {
+    width: auto !important;
+}
 </style>

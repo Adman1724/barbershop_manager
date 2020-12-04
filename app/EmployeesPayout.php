@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmployeesPayout extends Model
 {
-    
+    protected $fillable = [
+        'payout_id' , 'employee_id', 'holiday', 'first_part', 'second_part', 'lunch_card', 'overtime'
+    ];
+
     public function Employee(){
         return $this->belongsTo('App\Employee');
     }

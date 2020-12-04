@@ -82,6 +82,8 @@
         </v-icon>
         <v-icon small @click="updateCSVItem(item)"> mdi-cloud-upload </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+        <v-icon small @click="info(item)">mdi-information</v-icon>
+
 
     </template>
     <template v-slot:no-data>
@@ -100,6 +102,7 @@ export default {
 
     data() {
         return {
+            actualDetail:[],
 
             modal: false,
             dialog: false,
@@ -115,7 +118,7 @@ export default {
                     value: "date"
                 },
                 {
-                    text: "Works Days",
+                    text: "Days",
                     value: "works_days"
                 },
                 {
@@ -177,15 +180,16 @@ export default {
             var x;
             this.app.req.get("payout/init").then((response) => {
                 this.payouts = response.data.payouts;
-
+                console.log(this.payouts)
                 for (x in this.payouts) {
                     this.payouts[x].date = this.payouts[x].date.substr(0, 7);
 
-                    if (x.json == null) {
-
-                        this.payouts[x].json_check = 'false';
-                    } else {
+                    if (this.payouts[x].json !== null) {
                         this.payouts[x].json_check = 'true';
+
+                    } else {
+                         this.payouts[x].json_check = 'false';
+
                     }
                 }
 
@@ -247,6 +251,16 @@ export default {
             });
             this.payouts.splice(this.editedIndex, 1);
             this.closeDelete();
+        },
+        info(item){
+
+            this.actualDetail= item;
+            console.log('item***', item)
+
+
+            this.$root.$refs.EmployeesListComponent.actualPayout.id = this.actualDetail.id;
+            this.$root.$refs.EmployeesListComponent.actualPayout.date =this.actualDetail.date;
+            this.$root.$refs.EmployeesListComponent.init();
         },
 
         close() {
