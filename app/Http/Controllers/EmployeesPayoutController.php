@@ -15,7 +15,7 @@ class EmployeesPayoutController extends Controller
 
         $employeesPayout =  EmployeesPayout::all();
 
-        return response()->json(['employees'=>$employees],200);
+        return response()->json(['employees'=>$employeesPayout],200);
 
     }
     public function getAllEmployeesPayoutsById($id){

@@ -44,6 +44,14 @@ Route::prefix('employees_payouts')->group(function(){
     //Route::post('/new', 'EmployeeController@store');
 
 });
+Route::prefix('service')->group(function(){
+
+    Route::get('init', 'ServiceController@getAllServices');
+    Route::delete('/{id}', 'ServiceController@delete');
+    Route::put('/{id}', 'ServiceController@update');
+    Route::post('/new', 'ServiceController@store');
+
+});
 Route::prefix('payout')->group(function(){
 
     Route::get('init' , 'PayoutController@showAll');

@@ -4,6 +4,7 @@ import Register from './pages/Register'
 import Test from './components/TestComponent'
 import Employees from './pages/Employees'
 import Payouts from './pages/Payouts'
+import Services from './pages/Services'
 import Users from './pages/Users'
 
 
@@ -40,6 +41,11 @@ export default[
         path: '/payouts',
         component: Payouts,
         name: 'payouts'
+    },
+    {
+        path: '/services',
+        component: Services,
+        name: 'services'
     },
     {
         path: '/users',

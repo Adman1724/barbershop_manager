@@ -117,6 +117,10 @@ export default {
                     text: "Overtime",
                     value: "overtime"
                 },
+                 {
+                    text: "Worked Hours",
+                    value: "workedHour"
+                },
                 {
                     text: "Actions",
                     value: "actions",
@@ -134,6 +138,7 @@ export default {
                 secondPart: 0,
                 lunchCard: 0,
                 overtime: 0,
+                workedHour:0,
 
             },
             defaultItem: {
@@ -143,6 +148,7 @@ export default {
                 secondPart: 0,
                 lunchCard: 0,
                 overtime: 0,
+                workedHour:0,
             },
         }
     },
@@ -186,6 +192,7 @@ export default {
                     employee.overtime=response.data[x].overtime;
                     employee.holiday=response.data[x].holiday;
                     employee.lunchCard= response.data[x].lunch_card;
+                    employee.workedHour= response.data[x].worked_hour;
                     this.empPayouts.push(employee);
                 }
 
