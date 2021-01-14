@@ -22,18 +22,10 @@ class EmployeesPayoutController extends Controller
 
         $employeesPayouts =  EmployeesPayout::with('Employee')->where('payout_id', '=', $id)->get();
 
-
-
-
-       // $collection = collect(['name', 'payout']);
-        //foreach($employeesPayouts as $employeesPayout){
-        //$combined = $collection->combine([$employeesPayout->Employee(), $employeesPayout]);
-
-
-
         return response()->json($employeesPayouts,200);
 
     }
+    
 
 }
 

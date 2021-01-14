@@ -13,11 +13,19 @@ class EmployeesPayout extends Model
     public function Employee(){
         return $this->belongsTo('App\Employee');
     }
-    public function HoursWorked(){
-        return $this->hasMany('App\HoursWorked');
-    }
     public function Payout(){
         return $this->belongsTo('App\Payout');
+    }
+    public function EmployeesPayoutsService(){
+        return $this->hasMany('App\EmployeesPayoutsService');
+    }
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($employeesPayout) { // before delete() method call this
+            $employeesPayout->employeesPayoutsService()->delete();
+             // do the rest of the cleanup...
+        });
     }
 
 

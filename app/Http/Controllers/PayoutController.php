@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Payout;
 use App\Employee;
 use App\EmployeesPayout;
+use App\EmployeesPayoutsService;
+use App\Service;
 use Illuminate\Http\Request;
 
 class PayoutController extends Controller
@@ -50,6 +52,7 @@ class PayoutController extends Controller
     {
         $payout = Payout::create($request->all());
         $employees = Employee::all();
+        $services= Service::all();
 
         foreach ($employees as $employee) {
             //$employeesPayout= EmployeesPayment::where(['payout_id', '=', payout->id], ['employee_id', '=', employee->id])->get();
@@ -57,9 +60,16 @@ class PayoutController extends Controller
 
             //return response()->json($employees, 201);
             $employeesPayout = new EmployeesPayout(
-                ['payout_id' => $payout->id , 'employee_id' => $employee->id, 'holiday' => 0, 'first_part' => 0,'second_part' => 0,'lunch_card' => 0,'overtime' => 0]
+                ['payout_id' => $payout->id , 'employee_id' => $employee->id, 'holiday' => 0, 'first_part' => 0,'second_part' => 0,'lunch_card' => 0,'overtime' => 0, 'worked_hour'=>0]
             );
             $employeesPayout->save();
+            foreach($services as $service){
+                $employeesPayoutsService= new EmployeesPayoutsService(
+                    ['employees_payout_id'=> $employeesPayout->id, 'service_id'=>$service->id, 'multiplicity'=>0]
+                );
+                $employeesPayoutsService->save();
+            }
+            
 
 
         }

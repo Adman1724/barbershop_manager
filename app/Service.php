@@ -9,4 +9,7 @@ class Service extends Model
     protected $fillable = [
         'name', 'price', 'duration'
     ];
+    public function EmployeesPayoutsService(){
+        return $this->hasMany('App\EmployeesPayoutsService');
+    }
 }

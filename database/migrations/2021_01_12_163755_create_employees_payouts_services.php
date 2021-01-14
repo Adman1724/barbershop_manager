@@ -16,8 +16,8 @@ class CreateEmployeesPayoutsServices extends Migration
         Schema::create('employees_payouts_services', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('employees_payout_id')->unsigned();
-            $table->bigInteger('services_id')->unsigned();
-            $table->integer('multipicity');
+            $table->bigInteger('service_id')->unsigned();
+            $table->integer('multiplicity');
             $table->timestamps();
             $table->foreign('employees_payout_id')->references('id')->on('Employees_payouts');
             $table->foreign('services_id')->references('id')->on('Services');

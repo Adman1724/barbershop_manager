@@ -5,12 +5,13 @@
             <v-toolbar-title>{{actualPayout.date}}</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" min-width="400px">
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary"  class="mb-2" v-bind="attrs" v-on="on">
+            <v-btn color="primary"  class="mb-2" >
                         Calculate Payouts
                     </v-btn>
-                </template>
+            <v-dialog v-model="dialog" min-width="400px">
+                
+                    
+                
                 <v-card>
                     <v-card-title>
                         <span class="headline">{{ formTitle }}</span>
@@ -55,10 +56,12 @@
         </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">
+        <v-icon small @click="info(item)">mdi-information</v-icon>
+       
+        <v-icon small @click="downloadPdf(item)"> mdi-cloud-download </v-icon>
+         <v-icon small class="mr-2" @click="editItem(item)">
             mdi-pencil
         </v-icon>
-        <v-icon small @click="downloadPdf(item)"> mdi-cloud-download </v-icon>
 
 
     </template>
@@ -88,11 +91,7 @@ export default {
             dialog: false,
             dialogDelete: false,
             dialogDownloadPdf: false,
-            headers: [{
-                    align: "start",
-                    sortable: false,
-                    value: "name",
-                },
+            headers: [
                 {
                     text: "Name",
                     value: "name"
@@ -183,7 +182,7 @@ export default {
                 //this.empPayouts = response.data.payouts;
                 console.log(response.data);
                 for(x in response.data){
-                    console.log(x);
+                    
                     let employee = {};
                     employee.id=response.data[x].id;
                     employee.name= response.data[x].employee.name+' '+response.data[x].employee.surname;
@@ -195,10 +194,23 @@ export default {
                     employee.workedHour= response.data[x].worked_hour;
                     this.empPayouts.push(employee);
                 }
+                
 
 
 
             });
+            
+
+        },
+        info(item){
+             this.editedIndex = this.empPayouts.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+             this.app.req.get("employees_payouts_services/init/"+ this.editedItem.id).then((response) => {
+                //this.empPayouts = response.data.payouts;
+                console.log(response.data);
+             });
+                
+
 
         },
 
