@@ -20,7 +20,7 @@ class CreateEmployeesPayoutsServices extends Migration
             $table->integer('multiplicity');
             $table->timestamps();
             $table->foreign('employees_payout_id')->references('id')->on('Employees_payouts');
-            $table->foreign('services_id')->references('id')->on('Services');
+            $table->foreign('service_id')->references('id')->on('Services');
         });
     }
 

@@ -55,10 +55,7 @@ class PayoutController extends Controller
         $services= Service::all();
 
         foreach ($employees as $employee) {
-            //$employeesPayout= EmployeesPayment::where(['payout_id', '=', payout->id], ['employee_id', '=', employee->id])->get();
-            //if($employeesPayout){
-
-            //return response()->json($employees, 201);
+            
             $employeesPayout = new EmployeesPayout(
                 ['payout_id' => $payout->id , 'employee_id' => $employee->id, 'holiday' => 0, 'first_part' => 0,'second_part' => 0,'lunch_card' => 0,'overtime' => 0, 'worked_hour'=>0]
             );

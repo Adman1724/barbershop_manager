@@ -35,6 +35,17 @@ class EmployeesPayoutController extends Controller
 
         return response()->json(['result'=>$employee],200);
     }
+    public function delete($id)
+    {
+        $payout = EmployeesPayout::findOrFail($id);
+
+        if ($payout)
+            $payout->delete();
+        else
+            return response()->json([], 500);
+
+        return response()->json(['result' => 'done'], 200);
+    }
     
 
 }

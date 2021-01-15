@@ -261,6 +261,7 @@ export default {
             this.$root.$refs.EmployeesListComponent.actualPayout.id = this.actualDetail.id;
             this.$root.$refs.EmployeesListComponent.actualPayout.date =this.actualDetail.date;
             this.$root.$refs.EmployeesListComponent.actualPayout.works_days=this.actualDetail.works_days;
+            this.$root.$refs.EmployeesListComponent.actualJson=this.actualDetail.json;
             this.$root.$refs.EmployeesListComponent.init();
         },
 

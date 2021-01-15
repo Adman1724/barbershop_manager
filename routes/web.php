@@ -49,6 +49,7 @@ Route::prefix('employees_payouts')->group(function(){
 Route::prefix('employees_payouts_services')->group(function(){
 
     Route::get('init/{id}', 'EmployeesPayoutsServiceController@getAllEmployeesPayoutsServicesById');
+    Route::put('/{id}', 'EmployeesPayoutsServiceController@update');
     
     //Route::delete('/{id}', 'EmployeeController@delete');
    // Route::put('/{id}', 'EmployeeController@update');
