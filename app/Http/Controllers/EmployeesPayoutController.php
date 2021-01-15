@@ -25,6 +25,16 @@ class EmployeesPayoutController extends Controller
         return response()->json($employeesPayouts,200);
 
     }
+    public function update(Request $request, $id){
+        $employee = EmployeesPayout::findOrFail($id);
+        $employee->update($request->all());
+
+        
+        
+        
+
+        return response()->json(['result'=>$employee],200);
+    }
     
 
 }

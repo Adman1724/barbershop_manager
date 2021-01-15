@@ -41,7 +41,7 @@ Route::prefix('employees_payouts')->group(function(){
     Route::get('init/{id}', 'EmployeesPayoutController@getAllEmployeesPayoutsById');
 
     //Route::delete('/{id}', 'EmployeeController@delete');
-   // Route::put('/{id}', 'EmployeeController@update');
+   Route::put('/{id}', 'EmployeesPayoutController@update');
     //Route::post('/new', 'EmployeeController@store');
 
 });

@@ -18,15 +18,10 @@ class EmployeesPayoutsServiceController extends Controller
         return response()->json(['employeesPayoutsServices'=>$employeesPayoutsServices],200);
 
     }
+    
     public function getAllEmployeesPayoutsServicesById($id){
 
         $employeesPayoutsServices =  EmployeesPayoutsService::with('Service')->where('employees_payout_id', '=', $id)->get();
-
-
-
-
-
-
 
         return response()->json($employeesPayoutsServices,200);
 
